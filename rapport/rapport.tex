@@ -1,0 +1,236 @@
+\documentclass[french,12pt,a4]{report}
+\usepackage[french]{babel}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage[utf8]{inputenc}
+\usepackage[top=3cm,right=2cm,left=2cm,bottom=3cm]{geometry}
+
+\usepackage{fancyhdr}
+\lhead{}
+\rhead{}
+\chead{\textbf{Devoir numéro 2} - Complexité}
+\lfoot{Master 1 département informatique}
+\rfoot{VAUX et NÉMOZ SAINT-DIZIER}
+\pagestyle{fancy}
+
+%% Configuration des chapitres
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+{\parindent \z@ \raggedright \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries\thechapter.\quad#1\par\nobreak
+    \vskip 20\p@
+}}
+\makeatother
+
+\makeatletter
+\def\maketitle{%
+\thispagestyle{empty}
+ 
+\begin{tabularx}{17cm}{Xr}
+  \begin{tabular}{l}
+    Vaux François \\
+    Némoz Saint-Dizier Olivier \\
+  \end{tabular} 
+ 
+  &
+ 
+  \begin{tabular}{r}
+    \includegraphics[scale=0.7]{logo.png} \\
+    \textit{Université de la Méditerranée} \\
+    \textit{Master Département Informatique}\\
+    \textit{$1^{ere}$ année} \\
+  \end{tabular}
+\end{tabularx}
+ 
+\vspace{6cm}
+ 
+\begin{center}
+  \textbf{\Huge{Complexité}}\\[0.5em]\huge{Devoir numéro 2}
+\end{center}
+ 
+\vspace{0.5cm}
+
+\begin{center}
+  Date d'édition : 6 octobre 2010
+\end{center}
+
+\vspace{7cm}
+ 
+\begin{tabularx}{17cm}{Xr}
+  \textit{Année universitaire 2010-2011}
+  &
+  \textit{Version 1.0}
+\end{tabularx}
+}
+\makeatother
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\chapter{Introduction}
+
+\section{Objet}
+
+L’objet de ce rapport est de décrire le travail réalisé lors du devoir numéro 2 de complexité, la démarche adoptée, les outils java employés ainsi que les résultats obtenues et de le comparer avec les prévisions initiales. Ce document rappellera le contexte du projet et fixera les résultats obtenus.\\
+
+\section{Contexte}
+
+Le présent document est produit dans le cadre du cours de complexité de Michel Van Caneghem, c
+ours dispensé en première année de master du département
+d’informatique de la faculté de la Méditerranée. L’équipe de
+développement était composée de François VAUX, et Olivier
+NÉMOZ-SAINT-DIZIER. L’objectif de ce devoir était de nous permettre
+d'implémenter un correcteur orthographique basé sur l'analyse et la
+décomposition des mots en tri-gramme. 
+
+\chapter{Travail effectué}
+
+Nous avons programmé en Java suivant vos spécifications. Nous avons
+crée plusieurs classes, dont nous allons expliquer les principales.\\
+
+\section{La classe Dictionary}
+
+Le constructeur de la classe Dictionary charge en premier lieu le fichier texte contenant le dictionnaire, puis ajoute devant et derrière chaque mot le caractère \$. Ensuite, chaque mot est décomposé en tri-gramme, et ajouter à une structure de type LinkedHashMap. Cette structure est composé du tri-gramme comme clé, et d'une LinkedList comme valeur. Cette LinkedList va contenir l'ensemble des mots contenants le tri-gramme clé.\\
+
+De plus, cette classe implémente également une autre LinkedHashMap afin d'avoir accès à la fréquence de chaque mot dans la langue français, pour un million de mot. 
+
+\section{La classe Word}
+
+Cette classe a pour fonction de décomposer tout mot passé en argument
+de son constructeur afin de le décomposer en une liste de tri-gramme,
+ainsi que de calculer la distance de Levenshtein entre deux mots.
+
+\section{La classe Bench}
+
+Cette classe est simplement un classe permettant de mesurer le temps
+mis par une fonction pour s'effectuer. C'est elle qui va nous
+permettre de comparer nos résultats avec celui de l'enseignant.\\
+
+\section{La classe Spelling}
+
+Cette classe va determiner une liste de correction pour un mot
+faux. Elle va utiliser la fréquence des mots, ainsi que l'indice de
+jaccard afin de savoir quel mot est le plus pertinent.
+
+\section{Fonctionnement général}
+
+
+Le main du logiciel construit un instance de la classe Dictionary qui
+initialise le dictionnaire et les LinkedHashMap pour les
+tri-grammes. Ensuite, le fichier contenant les mots à corriger sont
+rangé dans une autre LinkedHashMap par la classe Mistakes. 
+Après ça, 
+
+\chapter{Résultat}
+
+\section{Le programme}
+
+Voici la sortie console du programme. Le programme affiche les mots
+qu'il n'arrive pas à corriger, ainsi que les corrections invalides
+pour ces mots ci.
+
+\begin{verbatim}
+Building dictionary... Done, indexing 128918 words took 903ms
+Reading mistake file... Done, took 9ms
+
+Fail: anarquer (arnaquer) [4ms] [marque, remarquer, marquer, barque,
+embarquer, débarquer, monarque, marquera, monarques, parque, arquer,
+démarquer, parquer, énarque, énarques, laquer, arque, arques,
+étarquer, anasarques]
+Fail: appogiature (appoggiature) [3ms] [nature, créature, signature,
+miniature, dictature, armature, ossature, filature, villégiature,
+ligature, immature, villégiatures, dénature, aperture, appogiatures,
+nonciature, arcature, colature, locature, cadrature]
+Fail: cantonnais (cantonais) [139ms] [chantonnait, chantonnant,
+cantonniers, cantonnés, cantonnées, cantonnait, cantonnaient,
+cantonnons, cantonna, cantonnant, chantonnais, cantonnai, cantonnions,
+canonnait, chantonnai, entonnais, cachetonnais, cantonnerait,
+capitonnait, croûtonnais]
+Fail: capoiera (capoeira) [6ms] [capote, paiera, emploiera, camera,
+capo, criera, nettoiera, chiera, déploiera, captera, capturera,
+noiera, pliera, priera, côtoiera, octroiera, capota, broiera,
+tutoiera, capitulera]
+Fail: chèreté (cherté) [2ms] [chère, pureté, sûreté, dureté, légèreté,
+rareté, chères, grossièreté, cochère, âpreté, cherchèrent, jachère,
+nochère, âcreté, chèrement, vachère, fureté, enchère, chevauchèrent,
+tireté]
+Fail: cîme (cime) [0ms] [dîme]
+Fail: dance (danse) [1ms] [avance, chance, distance, tendance, séance,
+lance, nuance, élance, défiance, dan, devance, rance, dormance,
+béance, tance, guidance, fiance, stance, doléance, étance]
+Fail: dioxyne (dioxine) [1ms] [diogène]
+Fail: fuschia (fuchsia) [1ms] [chéchia, haschischins]
+Fail: incluera (inclura) [3ms] [inclure, incluant, indiquera,
+inclinera, incluait, incluent, invoquera, incombera, incitera, inclue,
+influera, incarnera, inculpera, incisera, inclues, inclurait,
+inclurent, insinuera, inculquerait, incluais]
+Fail: obnibulé (obnubilé) [0ms] [démantibulé, fabulé]
+Fail: omnibulé (obnubilé) [0ms] [omnibus, démantibulé, omnium, fabulé]
+Fail: rhytme (rythme) [0ms] []
+Fail: scénette (saynète) [2ms] [sonnette, canette, nénette, cornette,
+dînette, binette, jeunette, nénettes, dunette, finette, brunette,
+satinette, cannette, sornette, sapinette, serinette, rénettes,
+grenette, lainette, linette]
+
+191 (33 perfects) words out of 205 corrected [93%], took 1789ms
+\end{verbatim}
+
+\section{Comparaison avec les résultats de l'enseignant}
+
+Nos résultats sont comparables à ceux de l'enseignant : de l'ordre de
+la seconde pour créer le dictionnaire, 2ms pour acceuil, 9ms pour
+baillonettes, 3ms pour boudhiste. De même, le pourcentage de mot
+corrigé est le même, à savoir 93\%.
+ 
+
+\chapter{Réponses aux questions posées}
+
+\section{Question 2}
+
+@faire
+
+\subsection{Temps de création du dictionnaire}
+Le dictionnaire se construit ici en environs une seconde. On peut
+eventuellement attribuer la différence au matériel executant le programme.
+
+\subsection{Temps de correction d'un mot}
+
+Le temps est compris entre 0ms et 124ms pour le plus lent, et en
+moyenne se situe sous la barre des 20ms.
+
+
+\section{Question 3}
+
+Certains mots ne peuvent pas être correctement corrigés car la méthode
+de correction se base sur une analyse des caractères, or certains mots
+peuvent être de prononciation similaire mais d'orthographe différente,
+ce qui peut induire le programme en erreur.
+
+
+\subsection{Correlation avec la première partie du devoir}
+
+@faire
+
+
+
+\chapter{Conclusion}
+
+On peut conclure ce devoir en remarquant que l'analyse par tri-gramme
+est assez efficace sur les erreurs les plus courantes de la langue
+française, et très rapide à l'echelle d'un mot, et conviendrait pour
+un traitement en temps réel d'une personne écrivant. L'indices de Jaccard et la distance de
+Levenshtein aident sensiblement à la correction valide d'un mot. De
+plus ce devoir nous a permis de mettre en pratique des concepts vue en
+cours, et en ce sens nous avons pû bien comprendre les mécanismes mis
+en jeux lors de ce genre d'algorithme.
+
+
+\end{document}
