@@ -54,23 +54,32 @@ public class Main {
     }
 
     Set<String> ws = mist.words();
-    int success = 0, oneshot = 0, count = ws.size();
-    Bench.start();
+    int success = 0, perfects = 0, count = ws.size();
+    Long totalTime = new Long(0);
+
     for (String w : ws) {
+
+      Bench.start();
       candidates = new Spelling(w).check(dict);
+      delta = Bench.stop();
+      totalTime += delta;
+
       String c = mist.correction(w);
       if (candidates.contains(c)) {
         if (candidates.getFirst().equals(c)) {
-          oneshot++;
+          perfects++;
+          System.out.println("Perfect: "+w+" ["+delta+"ms]");
+        } else {
+          System.out.println("Ok: "+w+ " ("+c+") ["+delta+"ms]");
         }
         success++;
       } else {
-        System.out.println(""+w+" ("+c+") "+candidates);
+        System.out.println("Fail: "+w+" ("+c+") ["+delta+"ms] "+candidates);
       }
     }
-    delta = Bench.stop();
-    System.out.printf("%d words out of %d corrected [%d%%], took %dms\n",
-                      success, count, success * 100 / count, delta);
+
+    System.out.printf("%d (%d perfects) words out of %d corrected [%d%%], took %dms\n",
+                      success, perfects, count, success * 100 / count, totalTime);
 
   }
 
