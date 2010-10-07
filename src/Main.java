@@ -62,10 +62,10 @@ public class Main {
       if (candidates.contains(c)) {
         if (candidates.getFirst().equals(c)) {
           oneshot++;
-        } else {
         }
         success++;
       } else {
+        System.out.println(""+w+" ("+c+") "+candidates);
       }
     }
     delta = Bench.stop();

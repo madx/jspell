@@ -53,7 +53,7 @@ public class Spelling {
     Collections.sort(candidates, new InvCoupleComparator());
     while (candidates.size() > Spelling.Candidates)
       candidates.removeLast();
-    /* Collections.sort(candidates, new FrequencyComparator(dict)); */
+    Collections.sort(candidates, new FrequencyComparator(dict));
 
     return candidates.members();
   }
