@@ -1,16 +1,13 @@
+import java.util.Stack;
+
 public class Bench {
-  private static long start; // TODO: use a stack
-  private static long stop;
+  private static Stack<Long> stack = new Stack<Long>();
 
   public static void start() {
-    start = System.currentTimeMillis();
+    stack.push(System.currentTimeMillis());
   }
 
-  public static void stop() {
-    stop = System.currentTimeMillis();
-  }
-
-  public static long getDelta() {
-    return stop - start;
+  public static Long stop() {
+    return System.currentTimeMillis() - stack.pop();
   }
 }

@@ -6,9 +6,9 @@ import java.io.IOException;
 
 public class Dictionary {
 
-  private FrequencyMap fMap;
-  private TrigramMap   tMap;
-  private int          wordCount;
+  private FloatMap   fMap;
+  private TrigramMap tMap;
+  private int        wordCount;
 
   public Dictionary(String dictFile)
     throws FileNotFoundException, IOException
@@ -16,7 +16,7 @@ public class Dictionary {
     BufferedReader reader;
     String         line;
 
-    fMap      = new FrequencyMap();
+    fMap      = new FloatMap();
     tMap      = new TrigramMap();
     reader    = new BufferedReader(new FileReader(dictFile));
     wordCount = 0;
@@ -28,7 +28,7 @@ public class Dictionary {
 
       fMap.put(word, freq);
 
-      WordList trigrams = Trigram.decompose(word);
+      WordList trigrams = Word.decompose(word);
 
       for (String trigram : trigrams) {
         if (tMap.containsKey(trigram)) {
@@ -50,6 +50,10 @@ public class Dictionary {
       return tMap.get(trigram);
     else
       return new WordList();
+  }
+
+  public double freqFor(String word) {
+    return fMap.get(word);
   }
 
   public int getWordCount() {
