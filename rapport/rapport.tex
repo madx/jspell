@@ -32,8 +32,8 @@
  
 \begin{tabularx}{17cm}{Xr}
   \begin{tabular}{l}
-    Vaux François \\
-    Némoz Saint-Dizier Olivier \\
+    François Vaux\\
+    Olivier Némoz Saint-Dizier\\
   \end{tabular} 
  
   &
@@ -86,8 +86,8 @@ L’objet de ce rapport est de décrire le travail réalisé lors du devoir num�
 Le présent document est produit dans le cadre du cours de complexité de Michel Van Caneghem, c
 ours dispensé en première année de master du département
 d’informatique de la faculté de la Méditerranée. L’équipe de
-développement était composée de François VAUX, et Olivier
-NÉMOZ-SAINT-DIZIER. L’objectif de ce devoir était de nous permettre
+développement était composée de François \textsc{Vaux}, et Olivier
+\textsc{Némoz-Saint-Dizier}. L’objectif de ce devoir était de nous permettre
 d'implémenter un correcteur orthographique basé sur l'analyse et la
 décomposition des mots en tri-gramme. 
 
@@ -118,12 +118,12 @@ permettre de comparer nos résultats avec celui de l'enseignant.\\
 
 Cette classe va determiner une liste de correction pour un mot
 faux. Elle va utiliser la fréquence des mots, ainsi que l'indice de
-jaccard afin de savoir quel mot est le plus pertinent.
+Jaccard afin de savoir quel mot est le plus pertinent.
 
 \section{Fonctionnement général}
 
 
-Le main du logiciel construit un instance de la classe Dictionary qui
+Le main du logiciel construit une instance de la classe Dictionary qui
 initialise le dictionnaire et les LinkedHashMap pour les
 tri-grammes. Ensuite, le fichier contenant les mots à corriger sont
 rangé dans une autre LinkedHashMap par la classe Mistakes. 
@@ -199,7 +199,7 @@ corrigé est le même, à savoir 93\%.
 
 \subsection{Temps de création du dictionnaire}
 Le dictionnaire se construit ici en environs une seconde. On peut
-eventuellement attribuer la différence au matériel executant le programme.
+eventuellement attribuer la différence au matériel exécutant le programme.
 
 \subsection{Temps de correction d'un mot}
 
@@ -226,7 +226,7 @@ ce qui peut induire le programme en erreur.
 On peut conclure ce devoir en remarquant que l'analyse par tri-gramme
 est assez efficace sur les erreurs les plus courantes de la langue
 française, et très rapide à l'echelle d'un mot, et conviendrait pour
-un traitement en temps réel d'une personne écrivant. L'indices de Jaccard et la distance de
+un traitement en temps réel d'une personne écrivant. L'indice de Jaccard et la distance de
 Levenshtein aident sensiblement à la correction valide d'un mot. De
 plus ce devoir nous a permis de mettre en pratique des concepts vue en
 cours, et en ce sens nous avons pû bien comprendre les mécanismes mis
